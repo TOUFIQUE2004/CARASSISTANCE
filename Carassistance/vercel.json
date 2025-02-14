@@ -1,14 +1,9 @@
-
 {
-    "builds": [{
-        "src": "Carassistance/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.0" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "Carassistance/wsgi.py"
-        }
-    ]
+  "version": 2,
+  "builds": [
+    { "src": "manage.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "manage.py" }
+  ]
 }
