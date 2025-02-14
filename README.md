@@ -19,11 +19,11 @@ To run this project locally, follow these steps:
    git clone https://github.com/TOUFIQUE2004/CARASSISTANCE.git
 Navigate to the project directory:
 
-sh
+2. sh
 cd your-repository
 Create a virtual environment:
 
-sh
+3. sh
 python -m venv .venv
 Activate the virtual environment:
 
@@ -33,13 +33,13 @@ sh
 .venv\Scripts\activate
 On macOS and Linux:
 
-sh
+4. sh
 source .venv/bin/activate
 Install the required dependencies:
 
-sh
+5. sh
 pip install -r requirements.txt
 Run the Django development server:
 
-sh
+6. sh
 python manage.py runserver
