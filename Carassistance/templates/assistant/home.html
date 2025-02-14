@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Assistance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #007BFF;
+            text-align: center;
+        }
+        label, select, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        label {
+            margin-bottom: 10px;
+        }
+        select, button {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #responseText {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function displayText(message) {
+            document.getElementById("responseText").innerText = message;
+        }
+
+        function getVoiceQuery() {
+            fetch("{% url 'get_voice_query' %}")
+                .then(response => response.json())
+                .then(data => displayText(data.message))
+                .catch(error => console.error("Error:", error));
+        }
+
+        const carInfo = {
+            "oil change": "For optimal performance, change engine oil every 5,000-7,500 kilometers. Regular oil changes help keep the engine clean and lubricated, preventing damage and improving fuel efficiency.",
+            "battery check": "Inspect the car battery terminals regularly for any corrosion. A healthy battery should last between 3-5 years. If you notice slow engine crank, dim headlights, or electrical issues, it might be time to replace the battery. Keep the terminals clean and securely fastened.",
+            "tire pressure": "Maintain the recommended tire pressure, usually between 30-35 PSI (2.1-2.4 Bar). Proper tire pressure ensures better fuel efficiency, improved handling, and longer tire life. Check tire pressure monthly and before long trips. Don't forget to check the spare tire!",
+            "brake issues": "If your brakes feel soft or make noise, check the brake fluid and pads. Squeaking or grinding noises indicate that the brake pads may be worn out. Regular maintenance of the braking system ensures your safety on the road.",
+            "engine trouble": "If the check engine light comes on, inspect components like spark plugs, fuel filter, or oxygen sensor. These parts play a crucial role in engine performance. Ignoring engine issues can lead to more significant problems down the road.",
+            "emergency contacts": "In case of a roadside emergency, always have the contact numbers for your car service provider, local towing service, and nearest police station handy. It's also beneficial to keep an emergency kit in your car that includes items like a first aid kit, flashlight, jumper cables, and reflective triangles.",
+            "scheduled maintenance": "Regular scheduled maintenance is essential for prolonging the life of your vehicle. Follow the manufacturer's recommendations for services such as fluid checks, air filter replacements, and timing belt changes. This helps catch potential issues early and keeps your car running smoothly.",
+            "fuel efficiency tips": "To improve fuel efficiency, maintain a steady speed, avoid excessive idling, and ensure proper tire inflation. Removing unnecessary weight from the vehicle and using cruise control on highways can also contribute to better fuel economy."
+        };
+
+        function showSolution(problem) {
+            const solution = carInfo[problem];
+            if (solution) {
+                displayText(solution);
+            } else {
+                displayText("No information available.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Assistance</h1>
+        <h2>Select a car problem or use voice query</h2>
+
+        <label for="carProblems">Select a problem:</label>
+        <select id="carProblems" onchange="showSolution(this.value)">
+            <option value="">--Select a problem--</option>
+            <option value="oil change">Oil Change</option>
+            <option value="battery check">Battery Check</option>
+            <option value="tire pressure">Tire Pressure</option>
+            <option value="brake issues">Brake Issues</option>
+            <option value="engine trouble">Engine Trouble</option>
+            <option value="emergency contacts">Emergency Contacts</option>
+            <option value="scheduled maintenance">Scheduled Maintenance</option>
+            <option value="fuel efficiency tips">Fuel Efficiency Tips</option>
+        </select>
+
+        <h2>Or use Voice Query</h2>
+        <button onclick="getVoiceQuery()">Start Voice Query</button>
+
+        <h2>Response</h2>
+        <div id="responseText">
+            <!-- The response text will be displayed here -->
+        </div>
+    </div>
+</body>
+</html>
